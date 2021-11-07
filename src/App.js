@@ -1,6 +1,7 @@
 import React, { useReducer} from 'react';
 //import { UserForm } from './Components/UserForm';
 import { ToDoList } from './Components/ToDoList';
+import {v4 as uuidv4} from 'uuid'
 
 //set initial global state
 const todosInitialState ={
@@ -10,6 +11,10 @@ const todosInitialState ={
 //create reducer function
 function todosReducer(state,action){
   switch(action.type){
+    case 'add':
+      const newTodo = {id: uuidv4(), text:action.payload}
+      const addedTodos =[...state.todos,newTodo]
+      return{...state,todos:addedTodos}
     case 'delete':
       const filteredTodoState = state.todos.filter( todo=> todo.id !== action.payload.id)
       return{...state, todos:filteredTodoState}
