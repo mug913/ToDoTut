@@ -11,6 +11,11 @@ const todosInitialState ={
 //create reducer function
 function todosReducer(state,action){
   switch(action.type){
+    case 'edit':
+      const updatedTodo ={...action.payload}
+      const updatedTodoIndex = state.todos.findIndex(t=>t.id === action.payload.id)
+      const updatedTodos = [...state.todos.slice(0,updatedTodoIndex),updatedTodo,...state.todos.slice(updatedTodoIndex +1)]
+      return {...state,todos:updatedTodos}
     case 'add':
       const newTodo = {id: uuidv4(), text:action.payload}
       const addedTodos =[...state.todos,newTodo]
